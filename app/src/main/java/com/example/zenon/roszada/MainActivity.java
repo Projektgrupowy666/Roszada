@@ -8,7 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-//check1222222222
+//  TRZYMAMY POZADEK!!!!
+// AI - sztuczna inteligencja
+// Chess - wszystko co jest zwiazane z szachami ruchy itp idt
+//Contents - wszystkie View
+//Utility - wszystkie uzyteczne i pomocne klasy :)
 public class MainActivity extends AppCompatActivity {
 
     @Override
