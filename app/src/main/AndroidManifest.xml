@@ -22,7 +22,8 @@
             android:name=".Chess.Game"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_game"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".Utility.Setting"></activity>
     </application>
 
 </manifest>
