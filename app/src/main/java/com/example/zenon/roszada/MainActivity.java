@@ -67,8 +67,12 @@ public class MainActivity extends AppCompatActivity {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(snackbar.isShown()){
-                    snackbar.dismiss();
+                try {
+                    if (snackbar.isShown()) {
+                        snackbar.dismiss();
+                    }
+                }catch (Exception ex){
+
                 }
             }
         });

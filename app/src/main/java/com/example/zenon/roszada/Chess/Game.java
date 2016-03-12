@@ -1,13 +1,17 @@
 package com.example.zenon.roszada.Chess;
 
 import android.annotation.SuppressLint;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 
+import com.example.zenon.roszada.Contents.Plansza;
 import com.example.zenon.roszada.R;
 
 /**
@@ -88,10 +92,17 @@ public class Game extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        try {
+            getActionBar().setDisplayShowTitleEnabled(false);
+            getActionBar().hide();
+        }catch (Exception ex){}
         setContentView(R.layout.activity_game);
 
         mVisible = true;
+        FragmentManager fragmentManager = getFragmentManager();
+        Fragment a = new Plansza();
+        fragmentManager.beginTransaction().replace(R.id.frame_holder,a).commit();
        // mControlsView = findViewById(R.id.fullscreen_content_controls);
        // mContentView = findViewById(R.id.fullscreen_content);
 
