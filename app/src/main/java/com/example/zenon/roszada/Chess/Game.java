@@ -7,12 +7,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 
 import com.example.zenon.roszada.Contents.Plansza;
 import com.example.zenon.roszada.R;
+import com.example.zenon.roszada.Utility.MT;
+
+import javax.security.auth.login.LoginException;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -88,7 +92,9 @@ public class Game extends AppCompatActivity {
             return false;
         }
     };
-
+    private Figures figures;
+    private Figures.White white;
+    private Fragment plansza;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,11 +103,10 @@ public class Game extends AppCompatActivity {
 
         mVisible = true;
         FragmentManager fragmentManager = getFragmentManager();
-        Fragment a = new Plansza();
-        fragmentManager.beginTransaction().replace(R.id.frame_holder,a).commit();
+        plansza = new Plansza();
+        fragmentManager.beginTransaction().replace(R.id.frame_holder,plansza,"plansza").commit();
        // mControlsView = findViewById(R.id.plansza);
         mContentView = findViewById(R.id.content_plansza);
-
 
          //Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +120,19 @@ public class Game extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
       //  findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+    }
+
+    private void startGame() {
+        figures = new Figures(this,true);
+        white = figures.new White();
+        Plansza plansza = (Plansza) getFragmentManager().findFragmentByTag("plansza");
+        if(plansza != null){
+        plansza.startGame();
+        }else {
+            MT.show(this,"Nie udalo sie");
+        }
+
     }
 
     @Override
@@ -125,6 +143,7 @@ public class Game extends AppCompatActivity {
         // created, to briefly hint to the user that UI controls
         // are available.
         delayedHide(100);
+        startGame();
     }
 
     private void toggle() {
