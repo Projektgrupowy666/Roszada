@@ -22,7 +22,7 @@ public class Figures {
 
         int pionimg = R.drawable.ic_action_name;
 
-      final public int getPionimg() {
+        final public int getPionimg() {
             return pionimg;
         }
     }
@@ -34,9 +34,16 @@ public class Figures {
     class Pion{
         int imageWhite = R.drawable.ic_action_name;
         int imageBlack = R.drawable.ic_action_name;
-        int currentPos = 0; //0 nie istnieje pozycja = id imageview
+        int currentPos[][] = new int[0][0]; //0 nie istnieje pozycja = id imageview
         int moveAble = 1;//ilepol moze sie ruszyc
-        int directionFront = 1;//0- kratka w gore
+        boolean moveFront = true;
+        boolean moveSides = false;
+        boolean moveBack = false;
+        boolean moveDiagonal = true;
+
+        void initialize(int x, int y){
+
+        }
 
     }
 }

@@ -6,6 +6,7 @@ import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,7 +45,10 @@ public class Plansza extends android.app.Fragment  {
             A3,B3,C3,D3,E3,F3,G3,H3,
             A2,B2,C2,D2,E2,F2,G2,H2,
             A1,B1,C1,D1,E1,F1,G1,H1;
-    public ImageView[][] squares = new ImageView[8][8];
+    public ImageView[][] squares = new ImageView[9][9];//indeksowana od 1
+    public int firstclick=0;
+    public int secondclick=0;
+    private String TAG="pl";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -268,12 +272,14 @@ public class Plansza extends android.app.Fragment  {
             @Override
             public void onClick(View v) {
                 MT.show(context,"E2");
+
             }
         });
         E3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MT.show(context,"E3");
+
             }
         });
         E4.setOnClickListener(new View.OnClickListener() {
@@ -664,9 +670,16 @@ public class Plansza extends android.app.Fragment  {
         H7.setAlpha(1.0f);
 
     }
+
     public void showPlace(int id){
 
         content.findViewById(id).setAlpha(1.0f);
+
+    }
+
+    public void hidePlace(int id){
+
+        content.findViewById(id).setAlpha(0.0f);
 
     }
 
