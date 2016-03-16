@@ -36,7 +36,7 @@ public class Plansza extends android.app.Fragment  {
     private View content;
     private ImageView image;
     private Context context;
-    public ImageView
+  /*  public ImageView
             A8,B8,C8,D8,E8,F8,G8,H8,
             A7,B7,C7,D7,E7,F7,G7,H7,
             A6,B6,C6,D6,E6,F6,G6,H6,
@@ -44,8 +44,9 @@ public class Plansza extends android.app.Fragment  {
             A4,B4,C4,D4,E4,F4,G4,H4,
             A3,B3,C3,D3,E3,F3,G3,H3,
             A2,B2,C2,D2,E2,F2,G2,H2,
-            A1,B1,C1,D1,E1,F1,G1,H1;
+            A1,B1,C1,D1,E1,F1,G1,H1;*/
     public ImageView[][] squares = new ImageView[9][9];//indeksowana od 1
+    private int[][] idviews = new int[9][9];//id pol na szachownicy
     public int firstclick=0;
     public int secondclick=0;
     private String TAG="pl";
@@ -67,607 +68,117 @@ public class Plansza extends android.app.Fragment  {
 
     private void setClickView() {
 
-        A1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"A1"); //TODO: napisac metode ktora osadzi odpowiedni jpg i sprawdzic co trzeba
-
-            }
-        });
-
-        A2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"A2");
-            }
-        });
-
-        A3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"A3");
-            }
-        });
-        A4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"A4");
-            }
-        });
-        A5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"A5");
-            }
-        });
-        A6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"A6");
-            }
-        });
-        A7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"A7");
-            }
-        });
-        A8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"A8");
-            }
-        });
-        B1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"B1");
-            }
-        });
-        B2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"B2");
-            }
-        });
-        B3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"B3");
-            }
-        });
-        B4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"B4");
-            }
-        });
-        B5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"B5");
-            }
-        });
-        B6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"B6");
-            }
-        });
-        B7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"B7");
-            }
-        });
-        B8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"B8");
-            }
-        });
-        C1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"C1");
-            }
-        });
-        C2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"C2");
-            }
-        });
-        C3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"C3");
-            }
-        });
-        C4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"C4");
-            }
-        });
-        C5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"C5");
-            }
-        });
-        C6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"C6");
-            }
-        });
-        C7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"C7");
-            }
-        });
-        C8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"C8");
-            }
-        });
-        D1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"D1");
-            }
-        });
-        D2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"D2");
-            }
-        });
-        D3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"D3");
-            }
-        });
-        D4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"D4");
-            }
-        });
-        D5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"D5");
-            }
-        });
-        D6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"D6");
-            }
-        });
-        D7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"D7");
-            }
-        });
-        D8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"D8");
-            }
-        });
-        E1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"E1");
-            }
-        });
-        E2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"E2");
-
-            }
-        });
-        E3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"E3");
-
-            }
-        });
-        E4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"E4");
-            }
-        });
-        E5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"E5");
-            }
-        });
-        E6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"E6");
-            }
-        });
-        E7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"E7");
-            }
-        });
-        E8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"E8");
-            }
-        });
-        F1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"F1");
-            }
-        });
-        F2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"F2");
-            }
-        });
-        F3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"F3");
-            }
-        });
-        F4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"F4");
-            }
-        });
-        F5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"F5");
-            }
-        });
-        F6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"F6");
-            }
-        });
-        F7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"F7");
-            }
-        });
-        F8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"F8");
-            }
-        });
-        G1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"G1");
-            }
-        });
-        G2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"G2");
-            }
-        });
-        G3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"G3");
-            }
-        });
-        G4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"G4");
-            }
-        });
-        G5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"G5");
-            }
-        });
-        G6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"G6");
-            }
-        });
-        G7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"G7");
-            }
-        });
-        G8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"G8");
-            }
-        });
-        H1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"H1");
-            }
-        });
-        H2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"H2");
-            }
-        });
-        H3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"H3");
-            }
-        });
-        H4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"H4");
-            }
-        });
-        H5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"H5");
-            }
-        });
-        H6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"H6");
-            }
-        });
-        H7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"H7");
-            }
-        });
-        H8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MT.show(context,"H8");
-            }
-        });
-
-
+        for (int i = 1; i < 9; i++) {
+            for (int j = 1; j < 9; j++) {
+                squares[i][j].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MT.show(context,String.valueOf(v.getId()));
+                    }
+                });
+            }
+        }
     }
 
 
     private void findStuff() {
         image = (ImageView) content.findViewById(R.id.plansza);
 
-        A1 = (ImageView) content.findViewById(R.id.A1);
+        findViews();
 
-        A2 = (ImageView) content.findViewById(R.id.A2);
-        A3 = (ImageView) content.findViewById(R.id.A3);
-        A4 = (ImageView) content.findViewById(R.id.A4);
-        A5 = (ImageView) content.findViewById(R.id.A5);
-        A6 = (ImageView) content.findViewById(R.id.A6);
-        A7 = (ImageView) content.findViewById(R.id.A7);
-        A8 = (ImageView) content.findViewById(R.id.A8);
-        B1 = (ImageView) content.findViewById(R.id.B1);
-        B2 = (ImageView) content.findViewById(R.id.B2);
-        B3 = (ImageView) content.findViewById(R.id.B3);
-        B4 = (ImageView) content.findViewById(R.id.B4);
-        B5 = (ImageView) content.findViewById(R.id.B5);
-        B6 = (ImageView) content.findViewById(R.id.B6);
-        B7 = (ImageView) content.findViewById(R.id.B7);
-        B8 = (ImageView) content.findViewById(R.id.B8);
-        C1 = (ImageView) content.findViewById(R.id.C1);
-        C2 = (ImageView) content.findViewById(R.id.C2);
-        C3 = (ImageView) content.findViewById(R.id.C3);
-        C4 = (ImageView) content.findViewById(R.id.C4);
-        C5 = (ImageView) content.findViewById(R.id.C5);
-        C6 = (ImageView) content.findViewById(R.id.C6);
-        C7 = (ImageView) content.findViewById(R.id.C7);
-        C8 = (ImageView) content.findViewById(R.id.C8);
-        D1 = (ImageView) content.findViewById(R.id.D1);
-        D2 = (ImageView) content.findViewById(R.id.D2);
-        D3 = (ImageView) content.findViewById(R.id.D3);
-        D4 = (ImageView) content.findViewById(R.id.D4);
-        D5 = (ImageView) content.findViewById(R.id.D5);
-        D5 = (ImageView) content.findViewById(R.id.D5);
-        D6 = (ImageView) content.findViewById(R.id.D6);
-        D7 = (ImageView) content.findViewById(R.id.D7);
-        D8 = (ImageView) content.findViewById(R.id.D8);
-        E1 = (ImageView) content.findViewById(R.id.E1);
-        E2 = (ImageView) content.findViewById(R.id.E2);
-        E3 = (ImageView) content.findViewById(R.id.E3);
-        E4 = (ImageView) content.findViewById(R.id.E4);
-        E5 = (ImageView) content.findViewById(R.id.E5);
-        E6 = (ImageView) content.findViewById(R.id.E6);
-        E7 = (ImageView) content.findViewById(R.id.E7);
-        E8 = (ImageView) content.findViewById(R.id.E8);
-        F1 = (ImageView) content.findViewById(R.id.F1);
-        F2 = (ImageView) content.findViewById(R.id.F2);
-        F3 = (ImageView) content.findViewById(R.id.F3);
-        F4 = (ImageView) content.findViewById(R.id.F4);
-        F5 = (ImageView) content.findViewById(R.id.F5);
-        F6 = (ImageView) content.findViewById(R.id.F6);
-        F7 = (ImageView) content.findViewById(R.id.F7);
-        F8 = (ImageView) content.findViewById(R.id.F8);
-        G1 = (ImageView) content.findViewById(R.id.G1);
-        G2 = (ImageView) content.findViewById(R.id.G2);
-        G3 = (ImageView) content.findViewById(R.id.G3);
-        G4 = (ImageView) content.findViewById(R.id.G4);
-        G5 = (ImageView) content.findViewById(R.id.G5);
-        G6 = (ImageView) content.findViewById(R.id.G6);
-        G7 = (ImageView) content.findViewById(R.id.G7);
-        G8 = (ImageView) content.findViewById(R.id.G8);
-        H1 = (ImageView) content.findViewById(R.id.H1);
-        H2 = (ImageView) content.findViewById(R.id.H2);
-        H3 = (ImageView) content.findViewById(R.id.H3);
-        H4 = (ImageView) content.findViewById(R.id.H4);
-        H5 = (ImageView) content.findViewById(R.id.H5);
-        H6 = (ImageView) content.findViewById(R.id.H6);
-        H7 = (ImageView) content.findViewById(R.id.H7);
-        H8 = (ImageView) content.findViewById(R.id.H8);
-        A1.setAlpha(0.0f);
-        A2.setAlpha(0.0f);
-        A3.setAlpha(0.0f);
-        A4.setAlpha(0.0f);
-        A5.setAlpha(0.0f);
-        A6.setAlpha(0.0f);
-        A7.setAlpha(0.0f);
-        A8.setAlpha(0.0f);
-        B1.setAlpha(0.0f);
-        B2.setAlpha(0.0f);
-        B3.setAlpha(0.0f);
-        B4.setAlpha(0.0f);
-        B5.setAlpha(0.0f);
-        B6.setAlpha(0.0f);
-        B7.setAlpha(0.0f);
-        B8.setAlpha(0.0f);
-        C1.setAlpha(0.0f);
-        C2.setAlpha(0.0f);
-        C3.setAlpha(0.0f);
-        C4.setAlpha(0.0f);
-        C5.setAlpha(0.0f);
-        C6.setAlpha(0.0f);
-        C7.setAlpha(0.0f);
-        C8.setAlpha(0.0f);
-        D1.setAlpha(0.0f);
-        D2.setAlpha(0.0f);
-        D3.setAlpha(0.0f);
-        D4.setAlpha(0.0f);
-        D5.setAlpha(0.0f);
-        D6.setAlpha(0.0f);
-        D7.setAlpha(0.0f);
-        D8.setAlpha(0.0f);
-        E1.setAlpha(0.0f);
-        E2.setAlpha(0.0f);
-        E3.setAlpha(0.0f);
-        E4.setAlpha(0.0f);
-        E5.setAlpha(0.0f);
-        E6.setAlpha(0.0f);
-        E7.setAlpha(0.0f);
-        E8.setAlpha(0.0f);
-        F1.setAlpha(0.0f);
-        F2.setAlpha(0.0f);
-        F3.setAlpha(0.0f);
-        F4.setAlpha(0.0f);
-        F5.setAlpha(0.0f);
-        F6.setAlpha(0.0f);
-        F7.setAlpha(0.0f);
-        F8.setAlpha(0.0f);
-        G1.setAlpha(0.0f);
-        G2.setAlpha(0.0f);
-        G3.setAlpha(0.0f);
-        G4.setAlpha(0.0f);
-        G5.setAlpha(0.0f);
-        G6.setAlpha(0.0f);
-        G7.setAlpha(0.0f);
-        G8.setAlpha(0.0f);
-        H1.setAlpha(0.0f);
-        H2.setAlpha(0.0f);
-        H3.setAlpha(0.0f);
-        H4.setAlpha(0.0f);
-        H5.setAlpha(0.0f);
-        H6.setAlpha(0.0f);
-        H7.setAlpha(0.0f);
-        H8.setAlpha(0.0f);
+        for (int i = 1; i < 9; i++) {
+            for (int j = 1; j < 9; j++) {
+                squares[i][j] = (ImageView) content.findViewById(idviews[i][j]);
+                squares[i][j].setAlpha(0.0f);
+            }
+        }
+
     }
 
-    public void startGame(){
+    private void findViews() {
+    //tutaj da sie jeszcze to zrefaktoryzowac ;p
+        idviews[1][1] = R.id.A8;
+        idviews[1][2] = R.id.B8;
+        idviews[1][3] = R.id.C8;
+        idviews[1][4] = R.id.D8;
+        idviews[1][5] = R.id.E8;
+        idviews[1][6] = R.id.F8;
+        idviews[1][7] = R.id.G8;
+        idviews[1][8] = R.id.H8;
+        idviews[2][1] = R.id.A7;
+        idviews[2][2] = R.id.B7;
+        idviews[2][3] = R.id.C7;
+        idviews[2][4] = R.id.D7;
+        idviews[2][5] = R.id.E7;
+        idviews[2][6] = R.id.F7;
+        idviews[2][7] = R.id.G7;
+        idviews[2][8] = R.id.H7;
+        idviews[3][1] = R.id.A6;
+        idviews[3][2] = R.id.B6;
+        idviews[3][3] = R.id.C6;
+        idviews[3][4] = R.id.D6;
+        idviews[3][5] = R.id.E6;
+        idviews[3][6] = R.id.F6;
+        idviews[3][7] = R.id.G6;
+        idviews[3][8] = R.id.H6;
+        idviews[4][1] = R.id.A5;
+        idviews[4][2] = R.id.B5;
+        idviews[4][3] = R.id.C5;
+        idviews[4][4] = R.id.D5;
+        idviews[4][5] = R.id.E5;
+        idviews[4][6] = R.id.F5;
+        idviews[4][7] = R.id.G5;
+        idviews[4][8] = R.id.H5;
+        idviews[5][1] = R.id.A4;
+        idviews[5][2] = R.id.B4;
+        idviews[5][3] = R.id.C4;
+        idviews[5][4] = R.id.D4;
+        idviews[5][5] = R.id.E4;
+        idviews[5][6] = R.id.F4;
+        idviews[5][7] = R.id.G4;
+        idviews[5][8] = R.id.H4;
+        idviews[6][1] = R.id.A3;
+        idviews[6][2] = R.id.B3;
+        idviews[6][3] = R.id.C3;
+        idviews[6][4] = R.id.D3;
+        idviews[6][5] = R.id.E3;
+        idviews[6][6] = R.id.F3;
+        idviews[6][7] = R.id.G3;
+        idviews[6][8] = R.id.H3;
+        idviews[7][1] = R.id.A2;
+        idviews[7][2] = R.id.B2;
+        idviews[7][3] = R.id.C2;
+        idviews[7][4] = R.id.D2;
+        idviews[7][5] = R.id.E2;
+        idviews[7][6] = R.id.F2;
+        idviews[7][7] = R.id.G2;
+        idviews[7][8] = R.id.H2;
+        idviews[8][1] = R.id.A1;
+        idviews[8][2] = R.id.B1;
+        idviews[8][3] = R.id.C1;
+        idviews[8][4] = R.id.D1;
+        idviews[8][5] = R.id.E1;
+        idviews[8][6] = R.id.F1;
+        idviews[8][7] = R.id.G1;
+        idviews[8][8] = R.id.H1;
+    }
+
+    public void startGame(Figures[] player,Figures[] Ai){
 
         /*int idA1 = A1.getId();
         content.findViewById(idA1).setBackgroundResource(R.drawable.ic_action_name);
         content.findViewById(idA1).setAlpha(1.0f);*/
-        A1.setImageResource(R.drawable.ic_action_name);
-        B1.setImageResource(R.drawable.ic_action_name);
-        C1.setImageResource(R.drawable.ic_action_name);
-        D1.setImageResource(R.drawable.ic_action_name);
-        E1.setImageResource(R.drawable.ic_action_name);
-        F1.setImageResource(R.drawable.ic_action_name);
-        G1.setImageResource(R.drawable.ic_action_name);
-        H1.setImageResource(R.drawable.ic_action_name);
-        A2.setImageResource(R.drawable.ic_action_name);
-        B2.setImageResource(R.drawable.ic_action_name);
-        C2.setImageResource(R.drawable.ic_action_name);
-        D2.setImageResource(R.drawable.ic_action_name);
-        E2.setImageResource(R.drawable.ic_action_name);
-        F2.setImageResource(R.drawable.ic_action_name);
-        G2.setImageResource(R.drawable.ic_action_name);
-        H2.setImageResource(R.drawable.ic_action_name);
+        for (int i = 1; i <= 2 ; i++) {
+            for (int j = 1; j < 9; j++) {
+                squares[i][j].setAlpha(1.0f);
+            }
+        }
 
-        A8.setImageResource(R.drawable.ic_action_name);
-        B8.setImageResource(R.drawable.ic_action_name);
-        C8.setImageResource(R.drawable.ic_action_name);
-        D8.setImageResource(R.drawable.ic_action_name);
-        E8.setImageResource(R.drawable.ic_action_name);
-        F8.setImageResource(R.drawable.ic_action_name);
-        G8.setImageResource(R.drawable.ic_action_name);
-        H8.setImageResource(R.drawable.ic_action_name);
-        A7.setImageResource(R.drawable.ic_action_name);
-        B7.setImageResource(R.drawable.ic_action_name);
-        C7.setImageResource(R.drawable.ic_action_name);
-        D7.setImageResource(R.drawable.ic_action_name);
-        E7.setImageResource(R.drawable.ic_action_name);
-        F7.setImageResource(R.drawable.ic_action_name);
-        G7.setImageResource(R.drawable.ic_action_name);
-        H7.setImageResource(R.drawable.ic_action_name);
-
-        A1.setAlpha(1.0f);
-        B1.setAlpha(1.0f);
-        C1.setAlpha(1.0f);
-        D1.setAlpha(1.0f);
-        E1.setAlpha(1.0f);
-        F1.setAlpha(1.0f);
-        G1.setAlpha(1.0f);
-        H1.setAlpha(1.0f);
-        A2.setAlpha(1.0f);
-        B2.setAlpha(1.0f);
-        C2.setAlpha(1.0f);
-        D2.setAlpha(1.0f);
-        E2.setAlpha(1.0f);
-        F2.setAlpha(1.0f);
-        G2.setAlpha(1.0f);
-        H2.setAlpha(1.0f);
-
-        A8.setAlpha(1.0f);
-        B8.setAlpha(1.0f);
-        C8.setAlpha(1.0f);
-        D8.setAlpha(1.0f);
-        E8.setAlpha(1.0f);
-        F8.setAlpha(1.0f);
-        G8.setAlpha(1.0f);
-        H8.setAlpha(1.0f);
-        A7.setAlpha(1.0f);
-        B7.setAlpha(1.0f);
-        C7.setAlpha(1.0f);
-        D7.setAlpha(1.0f);
-        E7.setAlpha(1.0f);
-        F7.setAlpha(1.0f);
-        G7.setAlpha(1.0f);
-        H7.setAlpha(1.0f);
+        for (int i = 7; i <= 8 ; i++) {
+            for (int j = 1; j < 9; j++) {
+                squares[i][j].setAlpha(1.0f);
+            }
+        }
 
     }
 
@@ -688,5 +199,7 @@ public class Plansza extends android.app.Fragment  {
         content.findViewById(destinationPos).setBackgroundResource(currentPos);
 
     }
-
+    public int getFigureId(int column, int verse){
+        return squares[verse][column].getId();
+    }
 }

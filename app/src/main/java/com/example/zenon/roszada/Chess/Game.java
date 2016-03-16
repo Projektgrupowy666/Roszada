@@ -40,6 +40,7 @@ public class Game extends AppCompatActivity {
      * and a change of the status and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
+    private static final String TAG = "GAME";
     private final Handler mHideHandler = new Handler();
     private View mContentView;
     private final Runnable mHidePart2Runnable = new Runnable() {
@@ -93,7 +94,6 @@ public class Game extends AppCompatActivity {
         }
     };
     private Figures figures;
-    private Figures.White white;
     private Fragment plansza;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,14 +124,36 @@ public class Game extends AppCompatActivity {
     }
 
     private void startGame() {
-        figures = new Figures(this,true);
-        white = figures.new White();
         Plansza plansza = (Plansza) getFragmentManager().findFragmentByTag("plansza");
-        if(plansza != null){
-        plansza.startGame();
-        }else {
-            MT.show(this,"Nie udalo sie");
+        figures = new Figures();
+        Figures player[] =  new Figures[16];
+        Figures Ai[] = new Figures[16];
+        //Creating handlers for figures
+        for (int i = 0; i < 16; i++) {
+            player[i] = new Figures(this,true,true);
+            Ai[i] = new Figures(this,false,false);
         }
+        //setting images and other stuffs from class Plansza to handlers
+            int it = 0, itt=0;
+            for (int i = 1; i < 9 ; i++) {//columns iterator
+
+                for (int j = 1 ; j < 3 ; j++) {//verse iterator
+                    Ai[it].createPion(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
+                    it++;  //Ai[0]
+                }
+
+                for (int k = 7; k < 9  ; k++) {//verse iterator
+                    player[itt].createPion(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
+                    itt++;
+                }
+            }
+
+        //before game star create players and prepare figures for them
+
+        /*for (int i = 0; i < 16; i++) {
+            Log.i(TAG, "startGame: player "+i+" "+player[i].pion.idcurrentPos+" verse "+player[i].pion.verse+" column "+player[i].pion.column);
+        }*/
+        plansza.startGame(player,Ai);
 
     }
 
