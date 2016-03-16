@@ -50,6 +50,15 @@ public class Plansza extends android.app.Fragment  {
     public int firstclick=0;
     public int secondclick=0;
     private String TAG="pl";
+    private PlaneWosCliced planeWosCliced;
+    public interface PlaneWosCliced{
+        void onPlaneClick(int plandeId);
+    }
+
+    public void setOnPlaneClick(PlaneWosCliced planeClick){
+        planeWosCliced = planeClick;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,8 +89,11 @@ public class Plansza extends android.app.Fragment  {
                 squares[i][j].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //send info to game class that that button wos cliked ;p
                         int id = v.getId();
-                        MT.show(context,String.valueOf(id)+" ");
+                        //MT.show(context,String.valueOf(id)+" "+v);
+                        planeWosCliced.onPlaneClick(id);
+
                     }
                 });
             }

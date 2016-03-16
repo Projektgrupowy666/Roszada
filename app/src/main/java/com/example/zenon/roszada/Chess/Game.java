@@ -22,7 +22,7 @@ import javax.security.auth.login.LoginException;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class Game extends AppCompatActivity {
+public class Game extends AppCompatActivity implements Plansza.PlaneWosCliced{
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -95,6 +95,8 @@ public class Game extends AppCompatActivity {
     };
     private Figures figures;
     private Fragment plansza;
+    private Figures player[];
+    private Figures Ai[];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,8 +128,9 @@ public class Game extends AppCompatActivity {
     private void startGame() {
         Plansza plansza = (Plansza) getFragmentManager().findFragmentByTag("plansza");
         figures = new Figures();
-        Figures player[] =  new Figures[16];
-        Figures Ai[] = new Figures[16];
+        plansza.setOnPlaneClick(this);
+        player =  new Figures[16];
+        Ai = new Figures[16];
         //Creating handlers for figures and preparing figures
         takeIdForFrames(player, Ai,plansza);
 
@@ -294,5 +297,11 @@ public class Game extends AppCompatActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    @Override
+    public void onPlaneClick(int plandeId) {
+        MT.show(this,String.valueOf(plandeId));
+        //TODO:// create a method that find the correct plane in players handler from id passing from Plansza class.
     }
 }
