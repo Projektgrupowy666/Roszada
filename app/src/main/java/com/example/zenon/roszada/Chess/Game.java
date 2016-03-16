@@ -128,34 +128,119 @@ public class Game extends AppCompatActivity {
         figures = new Figures();
         Figures player[] =  new Figures[16];
         Figures Ai[] = new Figures[16];
-        //Creating handlers for figures
-        for (int i = 0; i < 16; i++) {
-            player[i] = new Figures(this,true,true);
-            Ai[i] = new Figures(this,false,false);
-        }
-        //setting images and other stuffs from class Plansza to handlers
-            int it = 0, itt=0;
-            for (int i = 1; i < 9 ; i++) {//columns iterator
+        //Creating handlers for figures and preparing figures
+        takeIdForFrames(player, Ai,plansza);
 
-                for (int j = 1 ; j < 3 ; j++) {//verse iterator
-                    Ai[it].createPion(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
-                    it++;  //Ai[0]
-                }
-
-                for (int k = 7; k < 9  ; k++) {//verse iterator
-                    player[itt].createPion(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
-                    itt++;
-                }
-            }
-
-        //before game star create players and prepare figures for them
-
-        /*for (int i = 0; i < 16; i++) {
+       /* for (int i = 0; i < 16; i++) {
             Log.i(TAG, "startGame: player "+i+" "+player[i].pion.idcurrentPos+" verse "+player[i].pion.verse+" column "+player[i].pion.column);
         }*/
         plansza.startGame(player,Ai);
 
     }
+
+    private void takeIdForFrames(Figures[] player, Figures[] Ai,Plansza plansza) {
+
+        for (int i = 0; i < 16; i++) {
+            player[i] = new Figures(this,true,true);
+            Ai[i] = new Figures(this,false,false);
+        }
+        //setting images and other stuffs from class Plansza to handlers
+        int it = 0, itt=0;
+        for (int i = 1; i < 9 ; i++) {//columns iterator
+
+            for (int j = 1 ; j < 3 ; j++) {//verse iterator
+                if(j == 2){
+                    Ai[it].createPion(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
+                    Ai[it].TAG = Ai[it].pion.TAG;
+                    Log.i(TAG, "takeIdForFrames: "+Ai[it].TAG);
+                }else {
+                    if(i == 1 || i == 8){
+                        //wierza
+                        Ai[it].createWierza(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
+                        Ai[it].TAG = Ai[it].wierza.TAG;
+                        Log.i(TAG, "takeIdForFrames: " + Ai[it].TAG);
+                    }else if( i == 2 || i== 7){
+                        //skoczek
+                        Ai[it].createSkoczek(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
+                        Ai[it].TAG = Ai[it].skoczek.TAG;
+                        Log.i(TAG, "takeIdForFrames: " + Ai[it].TAG);
+                    }else if( i == 3 || i == 6){
+                        //goniec
+                        Ai[it].createGoniec(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
+                        Ai[it].TAG = Ai[it].goniec.TAG;
+                        Log.i(TAG, "takeIdForFrames: " + Ai[it].TAG);
+                    }else if( i == 4 && Ai[it].playerColor ){//white true
+                        //dama
+                        Ai[it].createHetman(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
+                        Ai[it].TAG = Ai[it].hetman.TAG;
+                        Log.i(TAG, "takeIdForFrames: " + Ai[it].TAG);
+                        Ai[it+1].createKrol(plansza.getFigureId(i + 1, j + 1), i + 1, j + 1, Ai[it + 1].playerColor);
+                        Ai[it+1].TAG = Ai[it+1].krol.TAG;
+                        Log.i(TAG, "takeIdForFrames: " + Ai[it+1].TAG);
+                    }else if ( i == 4 && !Ai[it].playerColor){
+                        //krol
+                        Ai[it].createKrol(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
+                        Ai[it].TAG = Ai[it].krol.TAG;
+                        Log.i(TAG, "takeIdForFrames: " + Ai[it].TAG);
+                        Ai[it+1].createHetman(plansza.getFigureId(i + 1, j + 1), i + 1, j + 1, Ai[it + 1].playerColor);
+                        Ai[it+1].TAG = Ai[it+1].hetman.TAG;
+                        Log.i(TAG, "takeIdForFrames: " + Ai[it+1].TAG);
+                    }
+
+                }
+
+                it++;
+            }
+
+            for (int k = 7; k < 9  ; k++) {//verse iterator
+
+                    if(k == 8){
+                        player[itt].createPion(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
+                        player[itt].TAG = player[itt].pion.TAG;
+                        Log.i(TAG, "takeIdForFrames: " + Ai[itt].TAG);
+                    }else {
+                        if(i == 1 || i == 8){
+                            //wierza
+                            player[itt].createWierza(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
+                            player[itt].TAG = player[itt].wierza.TAG;
+                            Log.i(TAG, "takeIdForFrames: " + Ai[itt].TAG);
+                        }else if( i == 2 || i== 7){
+                            //skoczek
+                            player[itt].createSkoczek(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
+                            player[itt].TAG = player[itt].skoczek.TAG;
+                            Log.i(TAG, "takeIdForFrames: " + Ai[itt].TAG);
+                        }else if( i == 3 || i == 6){
+                            //goniec
+                            player[itt].createGoniec(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
+                            player[itt].TAG = player[itt].goniec.TAG;
+                            Log.i(TAG, "takeIdForFrames: " + Ai[itt].TAG);
+                        }else if( i == 4 && player[itt].playerColor ){//white true
+                            //dama
+                            player[itt].createHetman(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
+                            player[itt].TAG = player[itt].hetman.TAG;
+                            Log.i(TAG, "takeIdForFrames: " + Ai[itt].TAG);
+                            player[itt+1].createKrol(plansza.getFigureId(i + 1, k + 1), i + 1, k + 1, player[itt + 1].playerColor);
+                            player[itt+1].TAG = player[itt+1].krol.TAG;
+                            Log.i(TAG, "takeIdForFrames: " + Ai[itt+1].TAG);
+                        }else if ( i == 4 && !player[itt].playerColor){
+                            //krol
+                            player[itt].createKrol(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
+                            player[itt].TAG = player[itt].krol.TAG;
+                            Log.i(TAG, "takeIdForFrames: " + Ai[itt].TAG);
+                            player[itt+1].createHetman(plansza.getFigureId(i + 1, k + 1), i + 1, k + 1, player[itt + 1].playerColor);
+                            player[itt+1].TAG = player[itt+1].hetman.TAG;
+                            Log.i(TAG, "takeIdForFrames: " + Ai[itt+1].TAG);
+                        }
+
+                    }
+
+
+                itt++;
+            }
+        }
+
+    }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

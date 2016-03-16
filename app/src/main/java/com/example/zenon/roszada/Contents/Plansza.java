@@ -54,7 +54,14 @@ public class Plansza extends android.app.Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        content = inflater.inflate(R.layout.fragment_plansza,container,false);
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT){
+            content = inflater.inflate(R.layout.fragment_plansza_lower_api,container,false);
+        }else{
+            content = inflater.inflate(R.layout.fragment_plansza,container,false);
+        }
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             context = getContext();
         }else {
@@ -73,7 +80,8 @@ public class Plansza extends android.app.Fragment  {
                 squares[i][j].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MT.show(context,String.valueOf(v.getId()));
+                        int id = v.getId();
+                        MT.show(context,String.valueOf(id)+" ");
                     }
                 });
             }

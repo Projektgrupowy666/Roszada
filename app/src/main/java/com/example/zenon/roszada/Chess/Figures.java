@@ -15,7 +15,13 @@ public class Figures {
     public boolean playerColor; //true-white false-black
     public boolean player = true;//grasz true AI false
     public boolean exist = false;//is figure exist on plane
+    public String  TAG="";
     public Pion pion;
+    public Wierza wierza;
+    public Goniec goniec;
+    public Skoczek skoczek;
+    public Hetman hetman;
+    public Krol krol;
 
     Figures(){
 
@@ -31,12 +37,33 @@ public class Figures {
         pion = new Pion(id,column,verse,color);
     }
 
+    public void createWierza(int id,int column,int verse,boolean color){
+        wierza = new Wierza(id,column,verse,color);
+    }
+
+    public void createGoniec(int id,int column,int verse,boolean color) {
+       goniec = new Goniec(id,column,verse,color);
+    }
+
+    public void createSkoczek(int id,int column,int verse,boolean color){
+        skoczek = new Skoczek(id,column,verse,color);
+    }
+
+    public void createHetman(int id,int column,int verse,boolean color){
+        hetman = new Hetman(id,column,verse,color);
+    }
+
+    public void createKrol(int id,int column,int verse,boolean color){
+        krol = new Krol(id,column,verse,color);
+    }
+
     public class Pion{
         public static final int imageWhite = R.drawable.ic_action_name;
         public static final int imageBlack = R.drawable.ic_action_name;
         public int idcurrentPos = 0; //0 nie istnieje pozycja = id imageview
         public int column = 0;
         public int verse = 0;
+        public final String TAG="Pion";
         public static final int moveAble = 1;//ilepol moze sie ruszyc
         public static final boolean moveFront = true;
         public static final boolean moveSides = false;
@@ -60,7 +87,7 @@ public class Figures {
             idcurrentPos=newId;
             column=newColumn;
             verse=newVerse;
-
+            //if pion come to the end of the plane he will grant to other figure TODO:// Make it.
         }
 
         @Override
@@ -76,6 +103,7 @@ public class Figures {
         public int idcurrentPos = 0; //0 nie istnieje pozycja = id imageview
         public int column = 0;
         public int verse = 0;
+        public final String TAG="Wierza";
         public static final int moveAble = 10;//ilepol moze sie ruszyc
         public static final boolean moveFront = true;
         public static final boolean moveSides = true;
@@ -115,6 +143,7 @@ public class Figures {
         public int idcurrentPos = 0; //0 nie istnieje pozycja = id imageview
         public int column = 0;
         public int verse = 0;
+        public final String TAG="Skoczek";
         public static final int moveAble = -1;//ilepol moze sie ruszyc
         public static final boolean moveFront = false;
         public static final boolean moveSides = false;
@@ -153,6 +182,7 @@ public class Figures {
         public int idcurrentPos = 0; //0 nie istnieje pozycja = id imageview
         public int column = 0;
         public int verse = 0;
+        public final String TAG="Goniec";
         public static final int moveAble = 10;//ilepol moze sie ruszyc
         public static final boolean moveFront = false;
         public static final boolean moveSides = false;
@@ -191,6 +221,7 @@ public class Figures {
         public int idcurrentPos = 0; //0 nie istnieje pozycja = id imageview
         public int column = 0;
         public int verse = 0;
+        public final String TAG="Hetman";
         public static final int moveAble = 10;//ilepol moze sie ruszyc
         public static final boolean moveFront = true;
         public static final boolean moveSides = true;
@@ -229,6 +260,7 @@ public class Figures {
         public int idcurrentPos = 0; //0 nie istnieje pozycja = id imageview
         public int column = 0;
         public int verse = 0;
+        public final String TAG="Krol";
         public static final int moveAble = 1;//ilepol moze sie ruszyc
         public static final boolean moveFront = true;
         public static final boolean moveSides = true;
