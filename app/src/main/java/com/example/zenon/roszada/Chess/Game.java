@@ -16,6 +16,8 @@ import com.example.zenon.roszada.Contents.Plansza;
 import com.example.zenon.roszada.R;
 import com.example.zenon.roszada.Utility.MT;
 
+import org.json.JSONObject;
+
 import javax.security.auth.login.LoginException;
 
 /**
@@ -94,9 +96,12 @@ public class Game extends AppCompatActivity implements Plansza.PlaneWosCliced{
         }
     };
     private Figures figures;
-    private Fragment plansza;
+    private Fragment fragmentplansza;
     private Figures player[];
     private Figures Ai[];
+    private Plansza plansza;
+    private boolean firstClick = false;
+    private int idForFirstClick=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,8 +110,8 @@ public class Game extends AppCompatActivity implements Plansza.PlaneWosCliced{
 
         mVisible = true;
         FragmentManager fragmentManager = getFragmentManager();
-        plansza = new Plansza();
-        fragmentManager.beginTransaction().replace(R.id.frame_holder,plansza,"plansza").commit();
+        fragmentplansza = new Plansza();
+        fragmentManager.beginTransaction().replace(R.id.frame_holder,fragmentplansza,"plansza").commit();
        // mControlsView = findViewById(R.id.plansza);
         mContentView = findViewById(R.id.content_plansza);
 
@@ -126,18 +131,18 @@ public class Game extends AppCompatActivity implements Plansza.PlaneWosCliced{
     }
 
     private void startGame() {
-        Plansza plansza = (Plansza) getFragmentManager().findFragmentByTag("plansza");
+        plansza = (Plansza) getFragmentManager().findFragmentByTag("plansza");
         figures = new Figures();
         plansza.setOnPlaneClick(this);
         player =  new Figures[16];
         Ai = new Figures[16];
         //Creating handlers for figures and preparing figures
-        takeIdForFrames(player, Ai,plansza);
+        takeIdForFrames(player, Ai, plansza);
 
        /* for (int i = 0; i < 16; i++) {
             Log.i(TAG, "startGame: player "+i+" "+player[i].pion.idcurrentPos+" verse "+player[i].pion.verse+" column "+player[i].pion.column);
         }*/
-        plansza.startGame(player,Ai);
+        plansza.startGame(player, Ai);
 
     }
 
@@ -154,40 +159,48 @@ public class Game extends AppCompatActivity implements Plansza.PlaneWosCliced{
             for (int j = 1 ; j < 3 ; j++) {//verse iterator
                 if(j == 2){
                     Ai[it].createPion(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
-                    Ai[it].TAG = Ai[it].pion.TAG;
-                    Log.i(TAG, "takeIdForFrames: "+Ai[it].TAG);
+                    Ai[it].TAG = Figures.Pion.TAG;
+                    Log.i(TAG, "takeIdForFrames: pion "+"i: "+i+"j:"+j+Ai[it].TAG+" id: "+Ai[it].planeId);
                 }else {
                     if(i == 1 || i == 8){
                         //wierza
                         Ai[it].createWierza(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
-                        Ai[it].TAG = Ai[it].wierza.TAG;
-                        Log.i(TAG, "takeIdForFrames: " + Ai[it].TAG);
+                        Ai[it].TAG = Figures.Wierza.TAG;
+                        Log.i(TAG, "takeIdForFrames: wierza "+"i: "+i+"j:"+j + Ai[it].TAG+" id: "+Ai[it].planeId);
                     }else if( i == 2 || i== 7){
                         //skoczek
                         Ai[it].createSkoczek(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
-                        Ai[it].TAG = Ai[it].skoczek.TAG;
-                        Log.i(TAG, "takeIdForFrames: " + Ai[it].TAG);
+                        Ai[it].TAG = Figures.Skoczek.TAG;
+                        Log.i(TAG, "takeIdForFrames: skoczek "+"i: "+i+"j:"+j + Ai[it].TAG+" id: "+Ai[it].planeId);
                     }else if( i == 3 || i == 6){
                         //goniec
                         Ai[it].createGoniec(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
-                        Ai[it].TAG = Ai[it].goniec.TAG;
-                        Log.i(TAG, "takeIdForFrames: " + Ai[it].TAG);
-                    }else if( i == 4 && Ai[it].playerColor ){//white true
+                        Ai[it].TAG = Figures.Goniec.TAG;
+                        Log.i(TAG, "takeIdForFrames: goniec "+"i: "+i+"j:"+j + Ai[it].TAG+" id: "+Ai[it].planeId);
+                    }else if( i == 4 ){//white true
                         //dama
-                        Ai[it].createHetman(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
-                        Ai[it].TAG = Ai[it].hetman.TAG;
-                        Log.i(TAG, "takeIdForFrames: " + Ai[it].TAG);
-                        Ai[it+1].createKrol(plansza.getFigureId(i + 1, j + 1), i + 1, j + 1, Ai[it + 1].playerColor);
-                        Ai[it+1].TAG = Ai[it+1].krol.TAG;
-                        Log.i(TAG, "takeIdForFrames: " + Ai[it+1].TAG);
-                    }else if ( i == 4 && !Ai[it].playerColor){
+                        if(Ai[it].playerColor){
+                            Ai[it].createKrol(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
+                            Ai[it].TAG = Figures.Krol.TAG;
+                            Log.i(TAG, "takeIdForFrames: krol " + "i: " + i + "j:" + j + Ai[it].TAG + " id: " + Ai[it].planeId);
+                        }else {
+                            Ai[it].createHetman(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
+                            Ai[it].TAG = Figures.Hetman.TAG;
+                            Log.i(TAG, "takeIdForFrames: hetman " + "i: " + i + "j:" + j + Ai[it].TAG + " id: " + Ai[it].planeId);
+                        }
+
+                    }else if ( i == 5){
                         //krol
-                        Ai[it].createKrol(plansza.getFigureId(i,j),i,j,Ai[it].playerColor);
-                        Ai[it].TAG = Ai[it].krol.TAG;
-                        Log.i(TAG, "takeIdForFrames: " + Ai[it].TAG);
-                        Ai[it+1].createHetman(plansza.getFigureId(i + 1, j + 1), i + 1, j + 1, Ai[it + 1].playerColor);
-                        Ai[it+1].TAG = Ai[it+1].hetman.TAG;
-                        Log.i(TAG, "takeIdForFrames: " + Ai[it+1].TAG);
+                        if(Ai[it].playerColor){
+                            Ai[it].createHetman(plansza.getFigureId(i, j), i, j, Ai[it].playerColor);
+                            Ai[it].TAG = Figures.Hetman.TAG;
+                            Log.i(TAG, "takeIdForFrames: hetman " + "i: " + i + 1 + "j:" + j + Ai[it].TAG + " id: " + Ai[it].planeId);
+                        }else {
+                            Ai[it].createKrol(plansza.getFigureId(i, j), i, j, Ai[it].playerColor);
+                            Ai[it].TAG = Figures.Krol.TAG;
+                            Log.i(TAG, "takeIdForFrames: krol " + "i: " + i + 1 + "j:" + j + Ai[it].TAG + " id: " + Ai[it].planeId);
+                        }
+
                     }
 
                 }
@@ -197,46 +210,52 @@ public class Game extends AppCompatActivity implements Plansza.PlaneWosCliced{
 
             for (int k = 7; k < 9  ; k++) {//verse iterator
 
-                    if(k == 8){
+                    if(k == 7){
                         player[itt].createPion(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
-                        player[itt].TAG = player[itt].pion.TAG;
+                        player[itt].TAG = Figures.Pion.TAG;
                         Log.i(TAG, "takeIdForFrames: " + Ai[itt].TAG);
                     }else {
-                        if(i == 1 || i == 8){
+                        if (i == 1 || i == 8) {
                             //wierza
-                            player[itt].createWierza(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
-                            player[itt].TAG = player[itt].wierza.TAG;
+                            player[itt].createWierza(plansza.getFigureId(i, k), i, k, player[itt].playerColor);
+                            player[itt].TAG = Figures.Wierza.TAG;
                             Log.i(TAG, "takeIdForFrames: " + Ai[itt].TAG);
-                        }else if( i == 2 || i== 7){
+                        } else if (i == 2 || i == 7) {
                             //skoczek
-                            player[itt].createSkoczek(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
-                            player[itt].TAG = player[itt].skoczek.TAG;
+                            player[itt].createSkoczek(plansza.getFigureId(i, k), i, k, player[itt].playerColor);
+                            player[itt].TAG = Figures.Skoczek.TAG;
                             Log.i(TAG, "takeIdForFrames: " + Ai[itt].TAG);
-                        }else if( i == 3 || i == 6){
+                        } else if (i == 3 || i == 6) {
                             //goniec
-                            player[itt].createGoniec(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
-                            player[itt].TAG = player[itt].goniec.TAG;
+                            player[itt].createGoniec(plansza.getFigureId(i, k), i, k, player[itt].playerColor);
+                            player[itt].TAG = Figures.Goniec.TAG;
                             Log.i(TAG, "takeIdForFrames: " + Ai[itt].TAG);
-                        }else if( i == 4 && player[itt].playerColor ){//white true
+                        } else if (i == 4) {//white true
                             //dama
-                            player[itt].createHetman(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
-                            player[itt].TAG = player[itt].hetman.TAG;
-                            Log.i(TAG, "takeIdForFrames: " + Ai[itt].TAG);
-                            player[itt+1].createKrol(plansza.getFigureId(i + 1, k + 1), i + 1, k + 1, player[itt + 1].playerColor);
-                            player[itt+1].TAG = player[itt+1].krol.TAG;
-                            Log.i(TAG, "takeIdForFrames: " + Ai[itt+1].TAG);
-                        }else if ( i == 4 && !player[itt].playerColor){
+                            if (player[itt].playerColor) {
+                                player[itt].createHetman(plansza.getFigureId(i, k), i, k, player[itt].playerColor);
+                                player[itt].TAG = Figures.Hetman.TAG;
+                                Log.i(TAG, "takeIdForFrames: hetman " + "i: " + i + "j:" + k + player[itt].TAG + " id: " + player[itt].planeId);
+                            } else {
+                                player[itt].createKrol(plansza.getFigureId(i, k), i, k, player[itt].playerColor);
+                                player[itt].TAG = Figures.Krol.TAG;
+                                Log.i(TAG, "takeIdForFrames: krol " + "i: " + i + "j:" + k + player[itt].TAG + " id: " + player[itt].planeId);
+                            }
+
+                        } else if (i == 5) {
                             //krol
-                            player[itt].createKrol(plansza.getFigureId(i,k),i,k,player[itt].playerColor);
-                            player[itt].TAG = player[itt].krol.TAG;
-                            Log.i(TAG, "takeIdForFrames: " + Ai[itt].TAG);
-                            player[itt+1].createHetman(plansza.getFigureId(i + 1, k + 1), i + 1, k + 1, player[itt + 1].playerColor);
-                            player[itt+1].TAG = player[itt+1].hetman.TAG;
-                            Log.i(TAG, "takeIdForFrames: " + Ai[itt+1].TAG);
+                            if (player[itt].playerColor) {
+                                player[itt].createKrol(plansza.getFigureId(i, k), i, k, player[itt].playerColor);
+                                player[itt].TAG = Figures.Krol.TAG;
+                                Log.i(TAG, "takeIdForFrames: krol " + "i: " + i + 1 + "j:" + k + player[itt].TAG + " id: " + player[itt].planeId);
+                            } else {
+                                player[itt].createHetman(plansza.getFigureId(i, k), i, k, player[itt].playerColor);
+                                player[itt].TAG = Figures.Hetman.TAG;
+                                Log.i(TAG, "takeIdForFrames: hetman " + "i: " + i + 1 + "j:" + k + player[itt].TAG + " id: " + player[itt].planeId);
+                            }
+
                         }
-
                     }
-
 
                 itt++;
             }
@@ -301,7 +320,66 @@ public class Game extends AppCompatActivity implements Plansza.PlaneWosCliced{
 
     @Override
     public void onPlaneClick(int plandeId) {
-        MT.show(this,String.valueOf(plandeId));
+       // MT.show(this, String.valueOf(plandeId));
         //TODO:// create a method that find the correct plane in players handler from id passing from Plansza class.
+        // player,Ai,id ==> 0 false 1 true , number od id
+        int request[] = findFigureById(plandeId);
+        if(request[0] == 1 /*&& request[2] > 0*/){
+
+            if(player[request[2]].click){
+                player[request[2]].click = false;
+                firstClick = false;
+            }else {
+                player[request[2]].click = true;
+                firstClick = true;
+                idForFirstClick = plandeId;
+            }
+            MT.show(this, String.valueOf(plandeId)+" "+player[request[2]].TAG+" "+player[request[2]].playerColor);
+        }else if(request[1] == 1 /*&& request[2] >0*/){
+            if(Ai[request[2]].click){
+                Ai[request[2]].click = false;
+                firstClick = false;
+            }else {
+                Ai[request[2]].click = true;
+                firstClick = true;
+                idForFirstClick = plandeId;
+            }
+            MT.show(this, String.valueOf(plandeId)+" "+Ai[request[2]].TAG+" "+Ai[request[2]].playerColor);
+        }else {
+            MT.show(this, String.valueOf(plandeId)+" empty plane wos clicked ");
+            if(firstClick){
+                makeMove(idForFirstClick,plandeId);
+            }
+        }
     }
+
+    private void makeMove(int idForFirstClick, int plandeId) {
+        //check is that move is correct first then make this:
+        plansza.replacePlaces(idForFirstClick, plandeId);
+    }
+
+    private int[] findFigureById(int plandeId) {
+        int ret[] = new int[3];
+        ret[0] = 0;
+        ret[1] = 0;
+        ret[2] = -1;
+        for (int i = 0; i < 16; i++) {
+            if(player[i].planeId == plandeId){
+                ret[0] = 1;
+                ret[1] = 0;
+                ret[2] = i;
+                Log.i(TAG, "findFigureById: player"+plandeId);
+                break;
+            }else if(Ai[i].planeId == plandeId){
+                ret[0] = 0;
+                ret[1] = 1;
+                ret[2] = i;
+                Log.i(TAG, "findFigureById: Ai"+plandeId);
+                break;
+            }
+        }
+            return ret ;
+    }
+
+
 }

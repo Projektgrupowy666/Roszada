@@ -216,7 +216,9 @@ public class Plansza extends android.app.Fragment  {
 
     public void replacePlaces(int currentPos,int destinationPos){
 
-        content.findViewById(destinationPos).setBackgroundResource(currentPos);
+        content.findViewById(destinationPos).setBackgroundResource(Figures.Pion.imageWhite);
+        hidePlace(currentPos);
+        showPlace(destinationPos);
 
     }
     public int getFigureId(int column, int verse){
